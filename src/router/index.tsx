@@ -1,13 +1,12 @@
 import { lazy } from 'react'
 import { RouteObject, Navigate } from 'react-router-dom'
 
-import Users from '@/pages/main/c-pages/user'
-import Goods from '@/pages/main/c-pages/goods'
-import Order from '@/pages/main/c-pages/order'
-import Evaluate from '@/pages/main/c-pages/evaluate'
-
 const SignIn = lazy(() => import('@/pages/signin'))
 const Main = lazy(() => import('@/pages/main'))
+const Users = lazy(() => import('@/pages/main/c-pages/user'))
+const Goods = lazy(() => import('@/pages/main/c-pages/goods'))
+const Order = lazy(() => import('@/pages/main/c-pages/order'))
+const Evaluate = lazy(() => import('@/pages/main/c-pages/evaluate'))
 
 const routes = [
   {

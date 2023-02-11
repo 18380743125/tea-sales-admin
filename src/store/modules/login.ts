@@ -7,7 +7,7 @@ import { ConstEnum } from '../../enum/constant.enum'
 import { ErrorEnum } from '../../enum/error.enum'
 
 interface IState {
-  user: object
+  user: Record<string, any>
   roles: Array<Record<string, unknown>>
 }
 
@@ -19,7 +19,7 @@ interface IArgType {
 
 const initialState: IState = {
   user: localCache.getCache('user') ?? {},
-  roles: localCache.getCache('roles') ?? []
+  roles: localCache.getCache('roles') ?? false
 }
 
 // 统一处理登录错误信息
@@ -62,7 +62,6 @@ export const loginAction = createAsyncThunk('login/login', (args: IArgType, { di
     localCache.setCache(ConstEnum.ROLES, roles)
     dispatch(changeOpen({ message: '登录成功~', type: 'success' }))
     navigate('/')
-    return
   })
 })
 
@@ -71,7 +70,9 @@ const loginSlice = createSlice({
   initialState,
   reducers: {
     changeUser(state, { payload }) {
-      state.user = payload
+      const newUser = { ...state.user, ...payload }
+      state.user = newUser
+      localCache.setCache(ConstEnum.USER, newUser)
     },
     changeRoles(state, { payload }) {
       state.roles = payload

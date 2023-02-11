@@ -2,11 +2,13 @@ import { configureStore } from '@reduxjs/toolkit'
 import { shallowEqual, TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import mainReducer from './modules/main'
 import loginReducer from './modules/login'
+import userReducer from './modules/user'
 
 const store = configureStore({
   reducer: {
     main: mainReducer,
-    login: loginReducer
+    login: loginReducer,
+    user: userReducer
   }
 })
 

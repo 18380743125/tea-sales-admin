@@ -18,3 +18,10 @@ export function loginReq(form: ILoginFormType) {
     data: form
   })
 }
+
+// 注销登录
+export function logoutReq() {
+  return bRequest.post({
+    url: '/api/v1/auth/logout'
+  })
+}

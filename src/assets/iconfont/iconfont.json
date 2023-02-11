@@ -1,0 +1,65 @@
+{
+  "id": "3602016",
+  "name": "tea_sales",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "824977",
+      "name": "订单信息",
+      "font_class": "dingdanxinxi",
+      "unicode": "e606",
+      "unicode_decimal": 58886
+    },
+    {
+      "icon_id": "2263506",
+      "name": "茶叶",
+      "font_class": "chaye",
+      "unicode": "e639",
+      "unicode_decimal": 58937
+    },
+    {
+      "icon_id": "3278371",
+      "name": "评价信息",
+      "font_class": "pingjiaxinxi",
+      "unicode": "e624",
+      "unicode_decimal": 58916
+    },
+    {
+      "icon_id": "1047496",
+      "name": "订单管理",
+      "font_class": "dingdanguanli",
+      "unicode": "e622",
+      "unicode_decimal": 58914
+    },
+    {
+      "icon_id": "2506188",
+      "name": "评论管理",
+      "font_class": "pinglunguanli",
+      "unicode": "e62e",
+      "unicode_decimal": 58926
+    },
+    {
+      "icon_id": "7596827",
+      "name": "24gl-portraitMaleInfo",
+      "font_class": "24gl-portraitMaleInfo",
+      "unicode": "eb24",
+      "unicode_decimal": 60196
+    },
+    {
+      "icon_id": "21905630",
+      "name": "用户列表",
+      "font_class": "yonghuliebiao",
+      "unicode": "e648",
+      "unicode_decimal": 58952
+    },
+    {
+      "icon_id": "287159",
+      "name": "产品列表-瀑布流模式",
+      "font_class": "chanpinliebiaopubuliumoshi",
+      "unicode": "e625",
+      "unicode_decimal": 58917
+    }
+  ]
+}
