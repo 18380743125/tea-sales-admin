@@ -1,6 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { IQueryUserType } from '@/types/user'
 import { getUsersReq } from '@/service/modules/user'
+import debounce from '@/utils/debounce'
+import { DispatchType } from '..'
 
 interface IState {
   users: Record<string, any>[]
@@ -12,16 +14,20 @@ const initialState: IState = {
   count: 0
 }
 
+const getUsers = (params: IQueryUserType, dispatch: DispatchType) => {
+  getUsersReq(params).then((res) => {
+    if (res.message == 'ok') {
+      dispatch(changeUsers(res.data[0]))
+      dispatch(changeCount(res.data[1]))
+    }
+  })
+}
+const _debounce = debounce(getUsers, 500, true)
+
 export const loadUsersAction = createAsyncThunk(
   '/user/load',
   (params: IQueryUserType, { dispatch }) => {
-    getUsersReq(params).then((res) => {
-      if (res.message == 'ok') {
-        console.log(res.data[0])
-        dispatch(changeUsers(res.data[0]))
-        dispatch(changeCount(res.data[1]))
-      }
-    })
+    _debounce(params, dispatch)
   }
 )
 

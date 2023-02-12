@@ -38,6 +38,10 @@ const bRequest = new BRequest({
           break
         case ErrorEnum.FORBIDDEN:
           message.error('禁止访问！')
+          break
+        case ErrorEnum.NO_EXISTS:
+          message.error('操作不存在！')
+          break
       }
       return res
     }

@@ -51,6 +51,10 @@ export const Wrapper = styled.div`
         -ms-overflow-style: none;
         background-color: #fff;
         z-index: 1;
+        border-right: 1px solid #f5f5f5;
+        .ant-menu {
+          border: none;
+        }
       }
       // 内容区域
       .ant-layout-content {
@@ -72,9 +76,11 @@ export const Wrapper = styled.div`
           background: #fff;
         }
         .main {
+          background-color: #fff;
           margin-top: 33px;
           padding: 6px 0 0 3px;
           border-radius: 4px;
+          border-top: 6px #f5f5f5 solid;
         }
       }
     }

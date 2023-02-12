@@ -23,3 +23,11 @@ export function updateUserReq(id: number, params: IUpdateUserType) {
     data: params
   })
 }
+
+export function bannedUserReq(id: number, banned: string) {
+  banned = banned === '0' ? '1' : '0'
+  return bRequest.post({
+    url: '/api/v1/user/banned',
+    params: { id, banned }
+  })
+}
