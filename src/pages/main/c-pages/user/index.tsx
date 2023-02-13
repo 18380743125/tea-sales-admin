@@ -14,10 +14,11 @@ const User = () => {
   const pageRef = useRef(1)
   const dispatch = useAppDispatch()
 
-  const { users, count } = useAppSelector(
+  const { users, count, loading } = useAppSelector(
     (state) => ({
       users: state.user.users,
-      count: state.user.count
+      count: state.user.count,
+      loading: state.user.loading
     }),
     shallowEqualApp
   )
@@ -68,6 +69,7 @@ const User = () => {
       </div>
       <ConfigProvider locale={zhCN}>
         <Table
+          loading={loading}
           bordered
           columns={columns}
           rowKey={(record) => record.name}
@@ -75,7 +77,7 @@ const User = () => {
           dataSource={users}
           // 页码
           pagination={{
-            style: { marginRight: 40 },
+            style: { marginRight: 6 },
             total: count,
             showSizeChanger: true,
             pageSize: size,

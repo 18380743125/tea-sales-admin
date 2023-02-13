@@ -17,6 +17,7 @@ export function getUsersReq(params: IQueryUserType) {
   })
 }
 
+// 更改密码
 export function updateUserReq(id: number, params: IUpdateUserType) {
   return bRequest.patch({
     url: `/api/v1/user/${id}`,
@@ -24,6 +25,7 @@ export function updateUserReq(id: number, params: IUpdateUserType) {
   })
 }
 
+// 禁用 / 解封
 export function bannedUserReq(id: number, banned: string) {
   banned = banned === '0' ? '1' : '0'
   return bRequest.post({

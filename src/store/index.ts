@@ -3,12 +3,14 @@ import { shallowEqual, TypedUseSelectorHook, useDispatch, useSelector } from 're
 import mainReducer from './modules/main'
 import loginReducer from './modules/login'
 import userReducer from './modules/user'
+import goodsReducer from './modules/goods'
 
 const store = configureStore({
   reducer: {
     main: mainReducer,
     login: loginReducer,
-    user: userReducer
+    user: userReducer,
+    goods: goodsReducer
   }
 })
 

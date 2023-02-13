@@ -1,6 +1,9 @@
 import axios from 'axios'
 import type { AxiosInstance } from 'axios'
 import type { BRequestConfig } from './type'
+import { localCache } from '@/utils/cache'
+import { ConstEnum } from '@/enum/constant.enum'
+import { formatUTC } from '../../utils/format'
 
 class BRequest {
   instance: AxiosInstance
@@ -18,6 +21,14 @@ class BRequest {
     // 全局响应拦截器
     this.instance.interceptors.response.use(
       (res) => {
+        if (res.config && res.config.headers) {
+          const { authorization, refreshtoken } = res.headers as any
+          if (authorization) {
+            localCache.setCache(ConstEnum.ACCESS_TOKEN, authorization)
+            localCache.setCache(ConstEnum.REFRESH_TOKEN, refreshtoken)
+            console.log(formatUTC(Date.now()) + '换了一次token')
+          }
+        }
         return res.data
       },
       (err) => {

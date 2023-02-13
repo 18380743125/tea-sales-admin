@@ -14,11 +14,12 @@ const bRequest = new BRequest({
     requestSuccessFn(config: any) {
       const accessToken = localCache.getCache(ConstEnum.ACCESS_TOKEN)
       const refreshToken = localCache.getCache(ConstEnum.REFRESH_TOKEN)
-      if (accessToken) config.headers.authorization = 'Bearer ' + accessToken
-      if (refreshToken) config.headers.refreshToken = refreshToken
+      if (accessToken) config.headers.authorization = accessToken
+      if (refreshToken) config.headers.refreshtoken = refreshToken
       return config
     },
     responseSuccessFn(res: any) {
+      // 通用错误处理
       const msg = res.message
       switch (msg) {
         case ErrorEnum.SERVER:
@@ -28,10 +29,10 @@ const bRequest = new BRequest({
           message.error('参数错误！')
           break
         case ErrorEnum.UNAUTHORIZED:
-          message.error('请先登录！', 3, () => (window.location.href = '/login'))
+          // message.error('请先登录！', 3, () => (window.location.href = '/login'))
           break
         case ErrorEnum.NO_ADMIN_AUTH:
-          message.error('无管理员权限！', 3, () => (window.location.href = '/login'))
+          // message.error('无管理员权限！', 3, () => (window.location.href = '/login'))
           break
         case ErrorEnum.PASSWORD_ERROR:
           message.error('密码错误！')

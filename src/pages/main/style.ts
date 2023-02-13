@@ -3,6 +3,7 @@ import styled from 'styled-components'
 export const Wrapper = styled.div`
   .ant-layout {
     height: 100vh;
+    background-color: #fff;
     // 头部区域
     .ant-layout-header {
       padding-left: 14px;
