@@ -1,4 +1,6 @@
+import { Close } from '@mui/icons-material'
 import {
+  Box,
   Button,
   Dialog,
   DialogActions,
@@ -41,7 +43,12 @@ const Confirm = (dialogConfig: IDialogConfig) => {
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
-      <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
+      <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Box>{title}</Box>
+        <Box>
+          <Close onClick={() => setOpen(false)} sx={{ color: '#a0a0a0', cursor: 'pointer' }} />
+        </Box>
+      </DialogTitle>
 
       <DialogContent>
         <DialogContentText id="alert-dialog-description">{content}</DialogContentText>

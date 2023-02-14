@@ -101,7 +101,7 @@ const Main = () => {
           {/* 头部右侧区域 */}
           <div className="user-info">
             <img src={avatar} alt="avatar" />
-            {user && <div className="welcome">欢迎登录，{user?.name}管理员</div>}
+            {user && <div className="welcome">欢迎登录，{user?.name} 管理员</div>}
             <Dropdown
               className="setting"
               menu={{ items: dropdownMenu, onClick: dropdownItemClick }}

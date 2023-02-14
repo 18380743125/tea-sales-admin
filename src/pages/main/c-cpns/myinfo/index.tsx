@@ -24,6 +24,7 @@ import { changeOpen } from '@/store/modules/main'
 import { IUpdateUserType } from '@/types/user'
 import { phoneRegExp } from '@/utils/regexp'
 import { changeUser } from '@/store/modules/login'
+import { Close } from '@mui/icons-material'
 
 interface IProps {
   open: boolean
@@ -68,7 +69,12 @@ const MyInfo = (props: IProps) => {
   return (
     <Wrapper>
       <Dialog sx={{ top: -120 }} fullWidth open={open} onClose={() => setOpen(false)}>
-        <DialogTitle>我的信息</DialogTitle>
+        <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Box>我的信息</Box>
+          <Box>
+            <Close onClick={() => setOpen(false)} sx={{ color: '#a0a0a0', cursor: 'pointer' }} />
+          </Box>
+        </DialogTitle>
         <h4 style={{ marginLeft: 23, color: '#01d36c' }}>用户名：{user.name}</h4>
         <Box component="form" noValidate onSubmit={formik.handleSubmit}>
           <DialogContent>

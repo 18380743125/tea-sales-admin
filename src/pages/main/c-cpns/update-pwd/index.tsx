@@ -11,6 +11,7 @@ import {
   DialogTitle,
   TextField
 } from '@mui/material'
+import { Close } from '@mui/icons-material'
 import type { IPasswordType } from '@/types/user'
 import { Wrapper } from './style'
 import { updatePwdReq } from '@/service/modules/user'
@@ -62,7 +63,12 @@ const UpdatePwd = (props: IProps) => {
   return (
     <Wrapper>
       <Dialog sx={{ top: -120 }} fullWidth open={open} onClose={() => setOpen(false)}>
-        <DialogTitle>修改密码</DialogTitle>
+        <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Box>修改密码</Box>
+          <Box>
+            <Close onClick={() => setOpen(false)} sx={{ color: '#a0a0a0', cursor: 'pointer' }} />
+          </Box>
+        </DialogTitle>
         <Box component="form" noValidate onSubmit={formik.handleSubmit}>
           <DialogContent>
             <TextField

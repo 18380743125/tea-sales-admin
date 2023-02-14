@@ -2,20 +2,28 @@ import { useState, useEffect, useCallback } from 'react'
 import { Input, Button, Table, Select, ConfigProvider, Skeleton } from 'antd'
 import zhCN from 'antd/es/locale/zh_CN'
 
-import useGoodsTable from './useGoodsTable'
 import { shallowEqualApp, useAppDispatch, useAppSelector } from '@/store'
-import { IQueryGoodsType } from '@/types/goods'
 import { queryCategoriesAction, queryGoodsAction } from '@/store/modules/goods'
+import type { IQueryGoodsType } from '@/types/goods'
+import useGoodsTable from './useGoodsTable'
 import { Wrapper } from './style'
+import AddCategory from './c-cpns/add-category'
+import ListCategory from './c-cpns/list-category'
+import EditGoods from './c-cpns/edit-goods'
 
 const { Option } = Select
 
-export default function Fruit() {
+export default function Goods() {
   // 分页参数及数据集
   const [page, setPage] = useState(1)
   const [size, setSize] = useState(10)
   const [name, setName] = useState('')
   const [category, setCategory] = useState(0)
+
+  // 弹出层
+  const [addCateOpen, setAddCateOpen] = useState(false)
+  const [listCateOpen, setListCateOpen] = useState(false)
+  const [addGoodsOpen, setAddGoodsOpen] = useState(false)
 
   const { goods, count, loading, categories } = useAppSelector(
     (state) => ({
@@ -28,6 +36,7 @@ export default function Fruit() {
   )
   const dispatch = useAppDispatch()
 
+  // 加载页码数据
   const loadData = useCallback(() => {
     const params: IQueryGoodsType = { page, size }
     name && (params.name = name)
@@ -42,7 +51,7 @@ export default function Fruit() {
   }, [])
 
   // hooks
-  const { columns } = useGoodsTable(loadData)
+  const { columns, id, editGoodsOpen, setEditGoodsOpen } = useGoodsTable(loadData)
 
   // 处理切换页码
   const pageChangeClick = (page: number) => {
@@ -65,6 +74,40 @@ export default function Fruit() {
 
   return (
     <Wrapper>
+      {/* 添加类别 */}
+      {addCateOpen && <AddCategory open={addCateOpen} setOpen={setAddCateOpen} />}
+
+      {/* 类别列表 */}
+      {listCateOpen && (
+        <ListCategory
+          loadData={loadData}
+          categories={categories}
+          open={listCateOpen}
+          setOpen={setListCateOpen}
+        />
+      )}
+
+      {/* 添加商品 */}
+      {addGoodsOpen && (
+        <EditGoods
+          categories={categories}
+          loadData={loadData}
+          open={addGoodsOpen}
+          setOpen={setAddGoodsOpen}
+        />
+      )}
+
+      {/* 编辑商品 */}
+      {editGoodsOpen && (
+        <EditGoods
+          categories={categories}
+          loadData={loadData}
+          open={editGoodsOpen}
+          setOpen={setEditGoodsOpen}
+          id={id}
+        />
+      )}
+
       {/* 操作区域 */}
       <div className="handle">
         <div className="search-name">
@@ -80,6 +123,7 @@ export default function Fruit() {
           value={category}
           onChange={(value) => setCategory(value)}
           style={{ marginLeft: 10, width: 120 }}
+          showSearch
           placeholder="全部类别"
           optionFilterProp="children"
           notFoundContent="无"
@@ -97,14 +141,18 @@ export default function Fruit() {
         <Button onClick={searchClick} style={{ marginLeft: 10 }} type="primary">
           搜索
         </Button>
-        <Button type="primary" style={{ marginLeft: 30 }}>
+
+        {/* 新增商品 */}
+        <Button onClick={() => setAddGoodsOpen(true)} type="primary" style={{ marginLeft: 30 }}>
           添加商品
         </Button>
+
+        {/* 类别操作 */}
         <div className="category-btn">
-          <Button type="primary" style={{ marginLeft: 10 }}>
+          <Button onClick={() => setListCateOpen(true)} type="primary" style={{ marginLeft: 10 }}>
             类别列表
           </Button>
-          <Button type="primary" style={{ marginLeft: 20 }}>
+          <Button onClick={() => setAddCateOpen(true)} type="primary" style={{ marginLeft: 20 }}>
             添加类别
           </Button>
         </div>

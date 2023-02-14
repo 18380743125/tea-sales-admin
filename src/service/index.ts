@@ -29,10 +29,12 @@ const bRequest = new BRequest({
           message.error('参数错误！')
           break
         case ErrorEnum.UNAUTHORIZED:
-          // message.error('请先登录！', 3, () => (window.location.href = '/login'))
+          localCache.clear()
+          message.error('请先登录！', 3, () => (window.location.href = '/login'))
           break
         case ErrorEnum.NO_ADMIN_AUTH:
-          // message.error('无管理员权限！', 3, () => (window.location.href = '/login'))
+          localCache.clear()
+          message.error('无管理员权限！', 3, () => (window.location.href = '/login'))
           break
         case ErrorEnum.PASSWORD_ERROR:
           message.error('密码错误！')
