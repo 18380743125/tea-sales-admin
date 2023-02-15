@@ -1,17 +1,18 @@
 import { Image, Popconfirm } from 'antd'
 import { Button } from '@mui/material'
-import type { ColumnsType } from 'antd/es/table'
 import { useState } from 'react'
 import { removeGoods } from '@/service/modules/goods'
 import { useAppDispatch } from '@/store'
 import { changeOpen } from '@/store/modules/main'
 import { upAndDownReq } from '@/service/modules/goods'
 import { BASE_URL } from '@/service/config'
+import type { ColumnsType } from 'antd/es/table'
 
 export default function useGoodsTable(loadData: Function) {
   const dispatch = useAppDispatch()
-  const [id, setId] = useState(0)
+  const [operatingGoods, setOperatingGoods] = useState(null)
   const [editGoodsOpen, setEditGoodsOpen] = useState(false)
+  const [discountOpen, setDiscountOpen] = useState(false)
 
   // 删除商品
   const removeClick = (id: number, state: string) => {
@@ -117,7 +118,14 @@ export default function useGoodsTable(loadData: Function) {
       render: (_, r) => {
         return (
           <div>
-            <Button>设置折扣</Button>
+            <Button
+              onClick={() => {
+                setOperatingGoods(r)
+                setDiscountOpen(true)
+              }}
+            >
+              设置折扣
+            </Button>
 
             {/* 上下架 */}
             <Popconfirm
@@ -135,7 +143,7 @@ export default function useGoodsTable(loadData: Function) {
             {/* 编辑 */}
             <Button
               onClick={() => {
-                setId(r.id)
+                setOperatingGoods(r)
                 setEditGoodsOpen(true)
               }}
               style={{ marginRight: 6 }}
@@ -161,9 +169,12 @@ export default function useGoodsTable(loadData: Function) {
     }
   ]
   return {
-    id,
+    operatingGoods,
+    setOperatingGoods,
     editGoodsOpen,
     setEditGoodsOpen,
+    discountOpen,
+    setDiscountOpen,
     columns
   }
 }

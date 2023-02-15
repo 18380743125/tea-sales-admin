@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { Input, Button, Table, Select, ConfigProvider, Skeleton } from 'antd'
 import zhCN from 'antd/es/locale/zh_CN'
 
@@ -10,12 +10,13 @@ import { Wrapper } from './style'
 import AddCategory from './c-cpns/add-category'
 import ListCategory from './c-cpns/list-category'
 import EditGoods from './c-cpns/edit-goods'
+import Discount from './c-cpns/discount'
 
 const { Option } = Select
 
 export default function Goods() {
   // 分页参数及数据集
-  const [page, setPage] = useState(1)
+  const pageRef = useRef(1)
   const [size, setSize] = useState(10)
   const [name, setName] = useState('')
   const [category, setCategory] = useState(0)
@@ -38,11 +39,11 @@ export default function Goods() {
 
   // 加载页码数据
   const loadData = useCallback(() => {
-    const params: IQueryGoodsType = { page, size }
+    const params: IQueryGoodsType = { page: pageRef.current, size }
     name && (params.name = name)
     if (category) params.category = category
     dispatch(queryGoodsAction(params))
-  }, [page, size, name, category])
+  }, [pageRef, size, name, category])
 
   // 初始化操作
   useEffect(() => {
@@ -51,24 +52,32 @@ export default function Goods() {
   }, [])
 
   // hooks
-  const { columns, id, editGoodsOpen, setEditGoodsOpen } = useGoodsTable(loadData)
+  const {
+    columns,
+    operatingGoods,
+    editGoodsOpen,
+    setEditGoodsOpen,
+    discountOpen,
+    setDiscountOpen
+  } = useGoodsTable(loadData)
 
   // 处理切换页码
   const pageChangeClick = (page: number) => {
-    setPage(page)
+    pageRef.current = page
     loadData()
   }
 
   // 处理页码 size 改变
   const pageSizeChangeClick = (page: number, size: number) => {
-    setPage(page)
+    pageRef.current = page
     setSize(size)
     loadData()
   }
 
   // 处理搜索
   const searchClick = () => {
-    setPage(1)
+    pageRef.current = 1
+    setSize(10)
     loadData()
   }
 
@@ -104,8 +113,13 @@ export default function Goods() {
           loadData={loadData}
           open={editGoodsOpen}
           setOpen={setEditGoodsOpen}
-          id={id}
+          operatingGoods={operatingGoods}
         />
+      )}
+
+      {/* 折扣管理 */}
+      {discountOpen && operatingGoods && (
+        <Discount operatingGoods={operatingGoods} open={discountOpen} setOpen={setDiscountOpen} />
       )}
 
       {/* 操作区域 */}
@@ -171,7 +185,7 @@ export default function Goods() {
             size="small"
             pagination={{
               size: 'default',
-              current: page,
+              current: pageRef.current,
               pageSize: size,
               total: count,
               showSizeChanger: true,

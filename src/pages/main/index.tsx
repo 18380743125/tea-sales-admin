@@ -72,7 +72,7 @@ const Main = () => {
       {/* 注销登录提示框 */}
       {logoutOpen && (
         <Confirm
-          title={<span style={{ color: '#eb3941' }}>你确认要注销登录吗</span>}
+          title={<span style={{ color: '#00b96b', letterSpacing: 1 }}>你确认要注销登录吗？</span>}
           open={logoutOpen}
           setOpen={setLogoutOpen}
           okClick={handleLogout}
@@ -96,7 +96,7 @@ const Main = () => {
               onClick: () => setCollapsed(!collapsed)
             })}
           </div>
-          <div style={{ letterSpacing: 2 }}>欢迎登录茶厂销售管理后台</div>
+          {/* <div style={{ letterSpacing: 2 }}>欢迎登录茶厂销售管理后台</div> */}
 
           {/* 头部右侧区域 */}
           <div className="user-info">

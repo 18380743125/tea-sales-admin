@@ -4,14 +4,14 @@ import debounce from '@/utils/debounce'
 import { FormInstance, message } from 'antd'
 
 export default function useSubmit(
-  id: number,
+  operatingGoods: Record<string, any> | null,
   form: FormInstance<any>,
   loadData: Function,
   setOpen: Function
 ) {
   const handleEditReq = (params: ICreateGoodsType) => {
     // 修改请求
-    updateGoodsReq(id, params).then((res: any) => {
+    updateGoodsReq(operatingGoods?.id, params).then((res: any) => {
       if (res.message === 'ok') {
         message.success('修改成功')
         loadData()
@@ -41,7 +41,7 @@ export default function useSubmit(
       return
     }
     const values = form.getFieldsValue()
-    if (!id && (!values.imgs || !values.imgs.fileList.length)) {
+    if (!operatingGoods && (!values.imgs || !values.imgs.fileList.length)) {
       message.error('商品图片不能为空~')
       return
     }
@@ -51,7 +51,7 @@ export default function useSubmit(
       params.imgs = values.imgs.fileList.map((item: any) => item.originFileObj)
     }
 
-    if (!id) {
+    if (!operatingGoods) {
       // 添加请求
       _handleEditReq(params)
     } else {

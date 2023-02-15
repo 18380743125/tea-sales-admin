@@ -121,7 +121,13 @@ const UpdatePwd = (props: IProps) => {
             <Button size="small" color="info" variant="outlined" onClick={() => setOpen(false)}>
               取消
             </Button>
-            <Button type="submit" size="small" color="info" variant="contained">
+            <Button
+              sx={{ backgroundColor: '#00b96b', ':hover': { backgroundColor: '#20c77c' } }}
+              type="submit"
+              size="small"
+              color="info"
+              variant="contained"
+            >
               修改
             </Button>
           </DialogActions>

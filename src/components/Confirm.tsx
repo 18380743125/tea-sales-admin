@@ -58,7 +58,18 @@ const Confirm = (dialogConfig: IDialogConfig) => {
         <Button size="small" variant="outlined" color="primary" onClick={() => setOpen(false)}>
           {cancelText}
         </Button>
-        <Button size="small" variant="outlined" color="error" onClick={okClick} autoFocus>
+        <Button
+          sx={{
+            color: '#fff',
+            backgroundColor: '#00b96b',
+            ':hover': { backgroundColor: '#20c77c', borderColor: '#20c77c' },
+            borderColor: '#00b96b'
+          }}
+          size="small"
+          variant="outlined"
+          onClick={okClick}
+          autoFocus
+        >
           {okText}
         </Button>
       </DialogActions>

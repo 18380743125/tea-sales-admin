@@ -1,5 +1,5 @@
 import bRequest from '..'
-import { ICreateGoodsType, IQueryGoodsType } from '@/types/goods'
+import { ICreateGoodsType, IQueryGoodsType, IDiscountType } from '@/types/goods'
 
 // 添加商品
 export function addGoodsReq(params: ICreateGoodsType) {
@@ -70,6 +70,13 @@ export function removeGoods(id: number) {
   })
 }
 
+// 查询商品图片
+export function queryGoodsImg(id: number) {
+  return bRequest.get({
+    url: `/api/v1/goods/img/${id}`
+  })
+}
+
 // 删除商品图片
 export function removeGoodsImgReq(name: string) {
   return bRequest.delete({
@@ -96,5 +103,29 @@ export function addCategoryReq(name: string) {
   return bRequest.post({
     url: '/api/v1/category',
     data: { name }
+  })
+}
+
+// 折扣请求相关
+// 新增折扣
+export function addDiscount(dto: IDiscountType) {
+  return bRequest.post({
+    url: '/api/v1/discounts',
+    data: dto
+  })
+}
+
+// 根据商品 ID 查询折扣信息
+export function getDiscountByGoodsId(id: number) {
+  return bRequest.get({
+    url: `/api/v1/discounts/goods/${id}`
+  })
+}
+
+// 修改折扣信息
+export function updateDiscount(id: number, dto: IDiscountType) {
+  return bRequest.patch({
+    url: `/api/v1/discounts/${id}`,
+    data: dto
   })
 }

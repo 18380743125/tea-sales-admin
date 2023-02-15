@@ -16,3 +16,10 @@ export interface ICreateGoodsType {
 
   [index: string]: any
 }
+
+export interface IDiscountType {
+  goodsId?: number
+  id?: number
+  rate?: number
+  descripion?: string
+}

@@ -73,7 +73,12 @@ const AddCategory = ({ open, setOpen }: IProps) => {
             onChange={formik.handleChange}
           />
           <DialogActions sx={{ padding: '10px 23px 23px 0' }}>
-            <Button variant="contained" color="primary" type="submit">
+            <Button
+              sx={{ backgroundColor: '#00b96b', ':hover': { backgroundColor: '#20c77c' } }}
+              variant="contained"
+              color="primary"
+              type="submit"
+            >
               提交
             </Button>
           </DialogActions>
