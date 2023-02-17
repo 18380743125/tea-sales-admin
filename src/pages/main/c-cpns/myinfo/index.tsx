@@ -42,9 +42,9 @@ const MyInfo = (props: IProps) => {
   const { open, setOpen, user } = props
   const dispatch = useAppDispatch()
   const [initialValues] = useState<IUpdateUserType>({
-    phone: user.phone,
-    age: user.age,
-    gender: user.gender
+    phone: user.phone || '',
+    age: user.age || '',
+    gender: user.gender || ''
   })
 
   // 验证表单

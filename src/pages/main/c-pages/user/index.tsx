@@ -1,11 +1,12 @@
 import { useEffect, useState, memo, useRef, useCallback } from 'react'
-import { Table, Input, ConfigProvider, Button } from 'antd'
+import { Table, Input, ConfigProvider, Button, message } from 'antd'
 import { UserOutlined, PhoneOutlined } from '@ant-design/icons'
 import zhCN from 'antd/es/locale/zh_CN'
 
 import { useAppSelector, shallowEqualApp, useAppDispatch } from '@/store'
 import { loadUsersAction } from '@/store/modules/user'
 import { useUserTable } from './useUserTable'
+import { phoneRegExp } from '@/utils/regexp'
 
 const User = () => {
   const [name, setName] = useState('')
@@ -41,6 +42,9 @@ const User = () => {
 
   // 搜索点击
   const searchClick = () => {
+    if (phone !== '' && !phoneRegExp.test(phone)) {
+      return message.error('手机号格式错误~')
+    }
     pageRef.current = 1
     loadData()
   }
@@ -50,6 +54,7 @@ const User = () => {
       {/* 操作区域 */}
       <div style={{ marginBottom: 10 }}>
         <Input
+          allowClear
           style={{ width: 200, marginRight: 16 }}
           value={name}
           onChange={({ target: { value } }) => setName(value)}
@@ -57,6 +62,7 @@ const User = () => {
           placeholder="请输入用户名"
         />
         <Input
+          allowClear
           style={{ width: 200, marginRight: 10 }}
           value={phone}
           onChange={({ target: { value } }) => setPhone(value)}

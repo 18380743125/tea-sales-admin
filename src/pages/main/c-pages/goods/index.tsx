@@ -37,7 +37,7 @@ export default function Goods() {
   )
   const dispatch = useAppDispatch()
 
-  // 加载页码数据
+  // 加载页面数据
   const loadData = useCallback(() => {
     const params: IQueryGoodsType = { page: pageRef.current, size }
     name && (params.name = name)

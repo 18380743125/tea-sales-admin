@@ -87,7 +87,7 @@ const EditGoods = ({ open, setOpen, operatingGoods = null, categories, loadData 
               } as ICreateGoodsType
             }
           >
-            {/* 水果名称 */}
+            {/* 商品名称 */}
             <Form.Item
               label="名称"
               name="name"
