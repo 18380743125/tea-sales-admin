@@ -11,5 +11,5 @@ export interface IDeliverGoodsType {
   orderId?: number
   userId?: number
   addressId?: number
-  company?: string
+  way?: string
 }

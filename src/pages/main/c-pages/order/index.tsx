@@ -68,12 +68,14 @@ const Order = () => {
   return (
     <Wrapper>
       {/* 发货弹出层 */}
-      <DeliverGoods
-        loadData={loadData}
-        order={operatingOrder}
-        open={deliverOpen}
-        setOpen={setDeliverOpen}
-      />
+      {operatingOrder && (
+        <DeliverGoods
+          loadData={loadData}
+          order={operatingOrder}
+          open={deliverOpen}
+          setOpen={setDeliverOpen}
+        />
+      )}
 
       {/* 操作区域 */}
       <div className="handle">

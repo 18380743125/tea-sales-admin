@@ -84,8 +84,10 @@ export default function useOrderTable() {
       dataIndex: 'logistic',
       width: 200,
       align: 'center',
-      render: (value) => (
-        <span style={{ letterSpacing: 2, color: '#000' }}>{value?.state || '未发货'}</span>
+      render: (value, r) => (
+        <span style={{ letterSpacing: 2, color: '#000' }}>
+          {value ? value.state : r.state === '1' ? '等待发货' : '—'}
+        </span>
       )
     },
     {
@@ -106,7 +108,7 @@ export default function useOrderTable() {
       width: 120,
       render: (_, r) => (
         <Button
-          disabled={r.logistic}
+          disabled={(!!r.logistic && r.state === '1') || r.state !== '1'}
           onClick={() => {
             setOperatingOrder(r)
             setDeliverOpen(true)
