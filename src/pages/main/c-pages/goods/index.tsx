@@ -17,7 +17,7 @@ const { Option } = Select
 export default function Goods() {
   // 分页参数及数据集
   const pageRef = useRef(1)
-  const [size, setSize] = useState(10)
+  const sizeRef = useRef(10)
   const [name, setName] = useState('')
   const [category, setCategory] = useState(0)
 
@@ -39,11 +39,11 @@ export default function Goods() {
 
   // 加载页面数据
   const loadData = useCallback(() => {
-    const params: IQueryGoodsType = { page: pageRef.current, size }
+    const params: IQueryGoodsType = { page: pageRef.current, size: sizeRef.current }
     name && (params.name = name)
     if (category) params.category = category
     dispatch(queryGoodsAction(params))
-  }, [pageRef, size, name, category])
+  }, [pageRef, sizeRef, name, category])
 
   // 初始化操作
   useEffect(() => {
@@ -70,14 +70,13 @@ export default function Goods() {
   // 处理页码 size 改变
   const pageSizeChangeClick = (page: number, size: number) => {
     pageRef.current = page
-    setSize(size)
+    sizeRef.current = size
     loadData()
   }
 
   // 处理搜索
   const searchClick = () => {
     pageRef.current = 1
-    setSize(10)
     loadData()
   }
 
@@ -186,7 +185,7 @@ export default function Goods() {
             pagination={{
               size: 'default',
               current: pageRef.current,
-              pageSize: size,
+              pageSize: sizeRef.current,
               total: count,
               showSizeChanger: true,
               onChange: pageChangeClick,

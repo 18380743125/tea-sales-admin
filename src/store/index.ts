@@ -5,6 +5,7 @@ import loginReducer from './modules/login'
 import userReducer from './modules/user'
 import goodsReducer from './modules/goods'
 import orderReducer from './modules/order'
+import evaluateReducer from './modules/evaluate'
 
 const store = configureStore({
   reducer: {
@@ -12,7 +13,8 @@ const store = configureStore({
     login: loginReducer,
     user: userReducer,
     goods: goodsReducer,
-    order: orderReducer
+    order: orderReducer,
+    evaluate: evaluateReducer
   }
 })
 

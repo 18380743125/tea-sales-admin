@@ -11,7 +11,7 @@ import { phoneRegExp } from '@/utils/regexp'
 const User = () => {
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
-  const [size, setSize] = useState(10)
+  const sizeRef = useRef(10)
   const pageRef = useRef(1)
   const dispatch = useAppDispatch()
 
@@ -26,11 +26,11 @@ const User = () => {
 
   // 加载数据
   const loadData = useCallback(() => {
-    const params: any = { page: pageRef.current, size }
+    const params: any = { page: pageRef.current, size: sizeRef.current }
     name && (params.name = name)
     phone && (params.phone = phone)
     dispatch(loadUsersAction(params))
-  }, [name, phone, size])
+  }, [name, phone, sizeRef])
 
   // hooks
   const { columns } = useUserTable({ loadData })
@@ -39,6 +39,12 @@ const User = () => {
   useEffect(() => {
     loadData()
   }, [])
+
+  const pageChangeSizeClick = (page: number, size: number) => {
+    pageRef.current = page
+    sizeRef.current = size
+    loadData()
+  }
 
   // 搜索点击
   const searchClick = () => {
@@ -86,16 +92,10 @@ const User = () => {
             style: { marginRight: 6 },
             total: count,
             showSizeChanger: true,
-            pageSize: size,
+            pageSize: sizeRef.current,
             current: pageRef.current,
-            onChange: (page: number) => {
-              pageRef.current = page
-              loadData()
-            },
-            onShowSizeChange: (_, pageSize) => {
-              setSize(pageSize)
-              loadData()
-            }
+            onChange: pageChangeSizeClick,
+            onShowSizeChange: pageChangeSizeClick
           }}
         />
       </ConfigProvider>

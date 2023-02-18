@@ -77,15 +77,15 @@ const Discount = ({ operatingGoods, open, setOpen }: IProps) => {
         >
           <Box sx={{ mb: 1.2 }}>商品名称: {operatingGoods.name}</Box>
           <Box sx={{ mb: 1.2 }}>
-            商品价格:{' '}
+            商品价格:
             <Box sx={{ color: 'red' }} component="span">
-              ￥{operatingGoods.price}
+              ￥{parseFloat(operatingGoods.price).toFixed(2)}
             </Box>
           </Box>
           <Box>
-            折后价格:{' '}
+            折后价格:
             <Box sx={{ color: 'red' }} component="span">
-              ￥{formik.values.rate * operatingGoods.price}
+              ￥{parseFloat(operatingGoods.price * formik.values.rate + '').toFixed(2)}
             </Box>
           </Box>
         </Box>

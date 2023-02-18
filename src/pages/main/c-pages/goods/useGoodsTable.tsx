@@ -84,7 +84,7 @@ export default function useGoodsTable(loadData: Function) {
       dataIndex: 'price',
       align: 'center',
       width: 120,
-      render: (value) => <span style={{ color: '#d32f2f' }}>￥{value}</span>
+      render: (value) => <span style={{ color: '#d32f2f' }}>￥{parseFloat(value).toFixed(2)}</span>
     },
     {
       title: '规格',

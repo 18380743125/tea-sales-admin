@@ -2,6 +2,7 @@ import { Suspense, useEffect } from 'react'
 import { useRoutes, useNavigate } from 'react-router-dom'
 import { Alert, Snackbar } from '@mui/material'
 import { ConfigProvider } from 'antd'
+import zhCN from 'antd/es/locale/zh_CN'
 
 import routes from './router/index'
 import { useAppDispatch, useAppSelector, shallowEqualApp } from './store'
@@ -32,6 +33,7 @@ function App() {
   return (
     <>
       <ConfigProvider
+        locale={zhCN}
         theme={{
           token: {
             colorPrimary: '#00b96b'

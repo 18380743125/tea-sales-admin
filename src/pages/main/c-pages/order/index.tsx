@@ -22,7 +22,7 @@ const Order = () => {
     loading: state.order.loading
   }))
   const pageRef = useRef(1)
-  const [size, setSize] = useState(10)
+  const sizeRef = useRef(10)
   const [state, setState] = useState('-1')
   const [gname, setGname] = useState('')
   const [phone, setPhone] = useState('')
@@ -32,7 +32,11 @@ const Order = () => {
 
   // 加载页面数据
   const loadData = useCallback(() => {
-    const params: IQueryOrderType = { page: pageRef.current, size, goodsName: gname }
+    const params: IQueryOrderType = {
+      page: pageRef.current,
+      size: sizeRef.current,
+      goodsName: gname
+    }
     if (state !== '-1') params.state = state
     if (phone !== '') params.phone = phone
     if (phone !== '' && !phoneRegExp.test(phone)) {
@@ -40,7 +44,7 @@ const Order = () => {
       return
     }
     dispatch(queryOrdersAction(params))
-  }, [pageRef, size, gname, state, phone])
+  }, [pageRef, sizeRef, gname, state, phone])
 
   // 初始化数据
   useEffect(() => {
@@ -48,20 +52,15 @@ const Order = () => {
   }, [])
 
   // 处理切换页码
-  const pageChangeClick = (page: number) => {
+  const pageChangeClick = (page: number, size: number) => {
     pageRef.current = page
+    sizeRef.current = size
     loadData()
   }
-  // 处理页码 size 改变
-  const pageSizeChangeClick = (page: number, size: number) => {
-    pageRef.current = page
-    setSize(size)
-    loadData()
-  }
+
   // 处理搜索
   const searchClick = () => {
     pageRef.current = 1
-    setSize(10)
     loadData()
   }
 
@@ -131,11 +130,11 @@ const Order = () => {
             pagination={{
               size: 'default',
               current: pageRef.current,
-              pageSize: size,
+              pageSize: sizeRef.current,
               total: count,
               showSizeChanger: true,
               onChange: pageChangeClick,
-              onShowSizeChange: pageSizeChangeClick
+              onShowSizeChange: pageChangeClick
             }}
           />
         </ConfigProvider>
