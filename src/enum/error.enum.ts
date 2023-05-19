@@ -6,6 +6,7 @@ export enum ErrorEnum {
   CAPTCHA_ERROR = 'captcha_error', // 验证码错误
   CAPTCHA_EXPIRES = 'captcha_expires', // 验证码过期
   LOGIN_ERROR = 'name_or_password_error', // 用户名或密码错误
+  LOGIN_EXPIRES = 'login_expires', // 登录过期
   UNAUTHORIZED = 'unauthorized', // 未授权
   FORBIDDEN = 'forbidden', // 禁止访问
   NO_ADMIN_AUTH = 'no_admin_auth', // 无管理员权限

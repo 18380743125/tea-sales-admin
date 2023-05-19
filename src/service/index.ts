@@ -45,6 +45,9 @@ const bRequest = new BRequest({
         case ErrorEnum.NO_EXISTS:
           message.error('操作不存在！')
           break
+        case ErrorEnum.LOGIN_EXPIRES:
+          localCache.clear()
+          message.error('登录过期！', 3, () => (window.location.href = '/login'))
       }
       return res
     }

@@ -67,8 +67,10 @@ const DeliverGoods = ({ open, setOpen, order, loadData }: IProps) => {
             <span className="count">x{order?.count}</span>
           </div>
           <div className="time">下单时间：{formatUTC(order.createAt, 'YYYY-MM-DD HH:mm:ss')}</div>
-          <div className="region">配送区域：{order?.address?.region}</div>
-          <div className="region-detail">配送详细地址：{order?.address?.detail}</div>
+          <div className="region">配送区域：{order?.address?.address?.split(' ')?.[0]}</div>
+          <div className="region-detail">
+            配送详细地址：{order?.address?.address?.split(' ')?.[1]}
+          </div>
         </div>
 
         <Form
